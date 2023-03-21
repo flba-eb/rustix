@@ -1,6 +1,6 @@
 //! Terminal I/O stream operations.
 
-#[cfg(not(target_os = "wasi"))]
+#[cfg(not(any(target_os = "wasi", target_os = "nto")))]
 mod cf;
 #[cfg(not(target_os = "wasi"))]
 mod constants;
@@ -11,7 +11,7 @@ mod tc;
 #[cfg(not(windows))]
 mod tty;
 
-#[cfg(not(target_os = "wasi"))]
+#[cfg(not(any(target_os = "wasi", target_os = "nto")))]
 pub use cf::*;
 #[cfg(not(target_os = "wasi"))]
 pub use constants::*;

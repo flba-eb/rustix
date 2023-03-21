@@ -185,7 +185,12 @@ pub fn writev<Fd: AsFd>(fd: Fd, bufs: &[IoSlice<'_>]) -> io::Result<usize> {
 /// [OpenBSD]: https://man.openbsd.org/preadv.2
 /// [DragonFly BSD]: https://man.dragonflybsd.org/?command=preadv&section=2
 /// [illumos]: https://illumos.org/man/2/preadv
-#[cfg(not(any(target_os = "haiku", target_os = "redox", target_os = "solaris")))]
+#[cfg(not(any(
+    target_os = "haiku",
+    target_os = "redox",
+    target_os = "solaris",
+    target_os = "nto"
+)))]
 #[inline]
 pub fn preadv<Fd: AsFd>(fd: Fd, bufs: &mut [IoSliceMut<'_>], offset: u64) -> io::Result<usize> {
     backend::io::syscalls::preadv(fd.as_fd(), bufs, offset)
@@ -212,7 +217,12 @@ pub fn preadv<Fd: AsFd>(fd: Fd, bufs: &mut [IoSliceMut<'_>], offset: u64) -> io:
 /// [OpenBSD]: https://man.openbsd.org/pwritev.2
 /// [DragonFly BSD]: https://man.dragonflybsd.org/?command=pwritev&section=2
 /// [illumos]: https://illumos.org/man/2/pwritev
-#[cfg(not(any(target_os = "haiku", target_os = "redox", target_os = "solaris")))]
+#[cfg(not(any(
+    target_os = "haiku",
+    target_os = "redox",
+    target_os = "solaris",
+    target_os = "nto",
+)))]
 #[inline]
 pub fn pwritev<Fd: AsFd>(fd: Fd, bufs: &[IoSlice<'_>], offset: u64) -> io::Result<usize> {
     backend::io::syscalls::pwritev(fd.as_fd(), bufs, offset)

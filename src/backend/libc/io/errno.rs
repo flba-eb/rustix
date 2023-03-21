@@ -164,6 +164,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const DOTDOT: Self = Self(c::EDOTDOT);
     /// `EDQUOT`
@@ -194,6 +195,7 @@ impl Errno {
         target_os = "haiku",
         target_os = "redox",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const HWPOISON: Self = Self(c::EHWPOISON);
     /// `EIDRM`
@@ -235,6 +237,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const ISNAM: Self = Self(c::EISNAM);
     /// `EKEYEXPIRED`
@@ -245,6 +248,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const KEYEXPIRED: Self = Self(c::EKEYEXPIRED);
     /// `EKEYREJECTED`
@@ -255,6 +259,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const KEYREJECTED: Self = Self(c::EKEYREJECTED);
     /// `EKEYREVOKED`
@@ -265,6 +270,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const KEYREVOKED: Self = Self(c::EKEYREVOKED);
     /// `EL2HLT`
@@ -337,6 +343,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const MEDIUMTYPE: Self = Self(c::EMEDIUMTYPE);
     /// `EMFILE`
@@ -359,6 +366,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const NAVAIL: Self = Self(c::ENAVAIL);
     /// `ENEEDAUTH`
@@ -416,6 +424,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const NOKEY: Self = Self(c::ENOKEY);
     /// `ENOLCK`
@@ -432,6 +441,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const NOMEDIUM: Self = Self(c::ENOMEDIUM);
     /// `ENOMEM`
@@ -508,6 +518,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const NOTNAM: Self = Self(c::ENOTNAM);
     /// `ENOTRECOVERABLE`
@@ -598,6 +609,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const REMOTEIO: Self = Self(c::EREMOTEIO);
     /// `ERESTART`
@@ -613,6 +625,7 @@ impl Errno {
         target_os = "haiku",
         target_os = "redox",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const RFKILL: Self = Self(c::ERFKILL);
     /// `EROFS`
@@ -676,6 +689,7 @@ impl Errno {
         target_os = "aix",
         target_os = "haiku",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     pub const UCLEAN: Self = Self(c::EUCLEAN);
     /// `EUNATCH`

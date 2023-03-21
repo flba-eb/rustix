@@ -91,7 +91,7 @@ pub fn pipe() -> io::Result<(OwnedFd, OwnedFd)> {
 /// [OpenBSD]: https://man.openbsd.org/pipe2.2
 /// [DragonFly BSD]: https://man.dragonflybsd.org/?command=pipe2&section=2
 /// [illumos]: https://illumos.org/man/2/pipe2
-#[cfg(not(any(apple, target_os = "aix", target_os = "haiku")))]
+#[cfg(not(any(apple, target_os = "aix", target_os = "haiku", target_os = "nto")))]
 #[inline]
 #[doc(alias = "pipe2")]
 pub fn pipe_with(flags: PipeFlags) -> io::Result<(OwnedFd, OwnedFd)> {
