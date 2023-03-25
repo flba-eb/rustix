@@ -8,6 +8,7 @@ use crate::ffi::{CStr, CString};
     target_os = "netbsd",
     target_os = "redox",
     target_os = "wasi",
+    target_os = "nto",
 )))]
 use crate::fs::StatFs;
 #[cfg(not(any(target_os = "haiku", target_os = "redox", target_os = "wasi")))]
@@ -235,6 +236,7 @@ pub fn access<P: path::Arg>(path: P, access: Access) -> io::Result<()> {
     target_os = "netbsd",
     target_os = "redox",
     target_os = "wasi",
+    target_os = "nto",
 )))]
 #[inline]
 pub fn statfs<P: path::Arg>(path: P) -> io::Result<StatFs> {

@@ -478,7 +478,7 @@ impl FileType {
     }
 
     /// Construct a `FileType` from the `d_type` field of a `c::dirent`.
-    #[cfg(not(any(solarish, target_os = "haiku", target_os = "redox")))]
+    #[cfg(not(any(solarish, target_os = "haiku", target_os = "redox", target_os = "nto")))]
     #[inline]
     pub(crate) const fn from_dirent_d_type(d_type: u8) -> Self {
         match d_type {
@@ -720,6 +720,7 @@ bitflags! {
             target_os = "aix",
             target_os = "haiku",
             target_os = "wasi",
+            target_os = "nto",
         )))]
         const KEEP_SIZE = c::FALLOC_FL_KEEP_SIZE;
         /// `FALLOC_FL_PUNCH_HOLE`
@@ -728,6 +729,7 @@ bitflags! {
             target_os = "aix",
             target_os = "haiku",
             target_os = "wasi",
+            target_os = "nto",
         )))]
         const PUNCH_HOLE = c::FALLOC_FL_PUNCH_HOLE;
         /// `FALLOC_FL_NO_HIDE_STALE`
@@ -739,6 +741,7 @@ bitflags! {
             target_os = "emscripten",
             target_os = "fuchsia",
             target_os = "wasi",
+            target_os = "nto",
         )))]
         const NO_HIDE_STALE = c::FALLOC_FL_NO_HIDE_STALE;
         /// `FALLOC_FL_COLLAPSE_RANGE`
@@ -748,6 +751,7 @@ bitflags! {
             target_os = "haiku",
             target_os = "emscripten",
             target_os = "wasi",
+            target_os = "nto",
         )))]
         const COLLAPSE_RANGE = c::FALLOC_FL_COLLAPSE_RANGE;
         /// `FALLOC_FL_ZERO_RANGE`
@@ -757,6 +761,7 @@ bitflags! {
             target_os = "haiku",
             target_os = "emscripten",
             target_os = "wasi",
+            target_os = "nto",
         )))]
         const ZERO_RANGE = c::FALLOC_FL_ZERO_RANGE;
         /// `FALLOC_FL_INSERT_RANGE`
@@ -766,6 +771,7 @@ bitflags! {
             target_os = "haiku",
             target_os = "emscripten",
             target_os = "wasi",
+            target_os = "nto",
         )))]
         const INSERT_RANGE = c::FALLOC_FL_INSERT_RANGE;
         /// `FALLOC_FL_UNSHARE_RANGE`
@@ -775,6 +781,7 @@ bitflags! {
             target_os = "haiku",
             target_os = "emscripten",
             target_os = "wasi",
+            target_os = "nto",
         )))]
         const UNSHARE_RANGE = c::FALLOC_FL_UNSHARE_RANGE;
     }
@@ -907,6 +914,7 @@ pub struct Stat {
     target_os = "netbsd",
     target_os = "redox",
     target_os = "wasi",
+    target_os = "nto",
 )))]
 #[allow(clippy::module_name_repetitions)]
 pub type StatFs = c::statfs;
