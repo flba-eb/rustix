@@ -5,7 +5,7 @@
 #[cfg(not(all(target_env = "musl", target_pointer_width = "32")))]
 #[cfg(not(all(target_os = "android", target_pointer_width = "32")))]
 #[cfg(not(all(target_os = "emscripten", target_pointer_width = "32")))]
-#[cfg(not(target_os = "redox"))]
+#[cfg(not(any(target_os = "redox", target_os = "nto")))]
 #[test]
 fn test_y2038_with_utimensat() {
     use rustix::fs::{
@@ -98,7 +98,7 @@ fn test_y2038_with_utimensat() {
 #[cfg(not(all(target_env = "musl", target_pointer_width = "32")))]
 #[cfg(not(all(target_os = "android", target_pointer_width = "32")))]
 #[cfg(not(all(target_os = "emscripten", target_pointer_width = "32")))]
-#[cfg(not(target_os = "redox"))]
+#[cfg(not(any(target_os = "redox", target_os = "nto")))]
 #[test]
 fn test_y2038_with_futimens() {
     use rustix::fs::{
@@ -191,6 +191,7 @@ fn test_y2038_with_futimens() {
 #[cfg(not(all(target_env = "musl", target_pointer_width = "32")))]
 #[cfg(not(all(target_os = "android", target_pointer_width = "32")))]
 #[cfg(not(all(target_os = "emscripten", target_pointer_width = "32")))]
+#[cfg(not(target_os = "nto"))]
 #[test]
 fn test_y2038_with_futimens_and_stat() {
     use rustix::fs::{fstat, futimens, open, stat, Mode, OFlags, Timespec, Timestamps};

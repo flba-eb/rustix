@@ -25,7 +25,13 @@ pub(crate) fn pipe() -> io::Result<(OwnedFd, OwnedFd)> {
     }
 }
 
-#[cfg(not(any(apple, target_os = "aix", target_os = "haiku", target_os = "wasi")))]
+#[cfg(not(any(
+    apple,
+    target_os = "aix",
+    target_os = "haiku",
+    target_os = "wasi",
+    target_os = "nto",
+)))]
 pub(crate) fn pipe_with(flags: PipeFlags) -> io::Result<(OwnedFd, OwnedFd)> {
     unsafe {
         let mut result = MaybeUninit::<[OwnedFd; 2]>::uninit();

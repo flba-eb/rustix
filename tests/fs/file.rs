@@ -100,6 +100,7 @@ fn test_file() {
         target_os = "netbsd",
         target_os = "redox",
         target_os = "wasi",
+        target_os = "nto",
     )))]
     {
         let statfs = rustix::fs::fstatfs(&file).unwrap();

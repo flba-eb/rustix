@@ -54,7 +54,8 @@ pub enum Signal {
                 target_arch = "mips",
                 target_arch = "mips64",
                 target_arch = "sparc",
-                target_arch = "sparc64"
+                target_arch = "sparc64",
+                target_os = "nto",
             ),
         )
     )))]
@@ -149,6 +150,7 @@ impl Signal {
                 solarish,
                 target_os = "aix",
                 target_os = "haiku",
+                target_os = "nto",
                 all(
                     linux_kernel,
                     any(

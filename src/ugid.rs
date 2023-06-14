@@ -78,14 +78,22 @@ impl Gid {
 // Return the raw value of the IDs. In case of `None` it returns `u32::MAX`
 // since it has the same bit pattern as `-1` indicating no change to the
 // owner/group ID.
+// QNX Neutrino (nto) uses i32 values, but only positive values should be used, see e.g.:
+// https://www.qnx.com/developers/docs/7.1/#com.qnx.doc.neutrino.lib_ref/topic/s/setuid.html
 pub(crate) fn translate_fchown_args(owner: Option<Uid>, group: Option<Gid>) -> (u32, u32) {
     let ow = match owner {
+        #[cfg(not(target_os = "nto"))]
         Some(o) => o.as_raw(),
+        #[cfg(target_os = "nto")]
+        Some(o) => o.as_raw() as u32,
         None => u32::MAX,
     };
 
     let gr = match group {
+        #[cfg(not(target_os = "nto"))]
         Some(g) => g.as_raw(),
+        #[cfg(target_os = "nto")]
+        Some(g) => g.as_raw() as u32,
         None => u32::MAX,
     };
 

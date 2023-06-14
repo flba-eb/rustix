@@ -3,7 +3,7 @@
 use crate::backend;
 use backend::fd::AsFd;
 #[cfg(feature = "procfs")]
-#[cfg(not(any(target_os = "fuchsia", target_os = "wasi")))]
+#[cfg(not(any(target_os = "fuchsia", target_os = "wasi", target_os = "nto")))]
 use {
     crate::ffi::CString, crate::io, crate::path::SMALL_PATH_BUFFER_SIZE, alloc::vec::Vec,
     backend::fd::BorrowedFd,

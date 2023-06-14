@@ -175,13 +175,13 @@ pub(crate) fn cfgetispeed(termios: &Termios) -> Speed {
     unsafe { c::cfgetispeed(termios) }
 }
 
-#[cfg(not(target_os = "wasi"))]
+#[cfg(not(any(target_os = "wasi", target_os = "nto")))]
 #[inline]
 pub(crate) fn cfmakeraw(termios: &mut Termios) {
     unsafe { c::cfmakeraw(termios) }
 }
 
-#[cfg(not(target_os = "wasi"))]
+#[cfg(not(any(target_os = "wasi", target_os = "nto")))]
 #[inline]
 pub(crate) fn cfsetospeed(termios: &mut Termios, speed: Speed) -> io::Result<()> {
     unsafe { ret(c::cfsetospeed(termios, speed)) }
@@ -193,7 +193,7 @@ pub(crate) fn cfsetispeed(termios: &mut Termios, speed: Speed) -> io::Result<()>
     unsafe { ret(c::cfsetispeed(termios, speed)) }
 }
 
-#[cfg(not(target_os = "wasi"))]
+#[cfg(not(any(target_os = "wasi", target_os = "nto")))]
 #[inline]
 pub(crate) fn cfsetspeed(termios: &mut Termios, speed: Speed) -> io::Result<()> {
     unsafe { ret(c::cfsetspeed(termios, speed)) }

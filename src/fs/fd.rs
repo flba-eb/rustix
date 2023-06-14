@@ -28,6 +28,7 @@ pub use backend::fs::types::Stat;
     target_os = "netbsd",
     target_os = "redox",
     target_os = "wasi",
+    target_os = "nto",
 )))]
 pub use backend::fs::types::StatFs;
 
@@ -165,6 +166,7 @@ pub fn fstat<Fd: AsFd>(fd: Fd) -> io::Result<Stat> {
     target_os = "netbsd",
     target_os = "redox",
     target_os = "wasi",
+    target_os = "nto",
 )))]
 #[inline]
 pub fn fstatfs<Fd: AsFd>(fd: Fd) -> io::Result<StatFs> {

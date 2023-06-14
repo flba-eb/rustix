@@ -18,6 +18,7 @@ bitflags! {
             target_os = "haiku",
             target_os = "openbsd",
             target_os = "redox",
+            target_os = "nto",
         )))]
         const DIRECT = c::O_DIRECT;
         /// `O_NONBLOCK`

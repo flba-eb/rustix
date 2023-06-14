@@ -10,7 +10,7 @@ use crate::backend::conv::{
 };
 use crate::backend::{c, MAX_IOV};
 use crate::fd::{AsFd, BorrowedFd, OwnedFd, RawFd};
-#[cfg(not(any(target_os = "aix", target_os = "wasi")))]
+#[cfg(not(any(target_os = "aix", target_os = "wasi", target_os = "nto")))]
 use crate::io::DupFlags;
 #[cfg(linux_kernel)]
 use crate::io::ReadWriteFlags;
@@ -85,7 +85,12 @@ pub(crate) fn writev(fd: BorrowedFd<'_>, bufs: &[IoSlice]) -> io::Result<usize> 
     }
 }
 
-#[cfg(not(any(target_os = "haiku", target_os = "redox", target_os = "solaris")))]
+#[cfg(not(any(
+    target_os = "haiku",
+    target_os = "redox",
+    target_os = "solaris",
+    target_os = "nto"
+)))]
 pub(crate) fn preadv(
     fd: BorrowedFd<'_>,
     bufs: &mut [IoSliceMut],
@@ -103,7 +108,12 @@ pub(crate) fn preadv(
     }
 }
 
-#[cfg(not(any(target_os = "haiku", target_os = "redox", target_os = "solaris")))]
+#[cfg(not(any(
+    target_os = "haiku",
+    target_os = "redox",
+    target_os = "solaris",
+    target_os = "nto"
+)))]
 pub(crate) fn pwritev(fd: BorrowedFd<'_>, bufs: &[IoSlice], offset: u64) -> io::Result<usize> {
     // Silently cast; we'll get `EINVAL` if the value is negative.
     let offset = offset as i64;
@@ -333,6 +343,7 @@ pub(crate) fn dup2(fd: BorrowedFd<'_>, new: &mut OwnedFd) -> io::Result<()> {
     target_os = "haiku",
     target_os = "redox",
     target_os = "wasi",
+    target_os = "nto",
 )))]
 pub(crate) fn dup3(fd: BorrowedFd<'_>, new: &mut OwnedFd, flags: DupFlags) -> io::Result<()> {
     unsafe {

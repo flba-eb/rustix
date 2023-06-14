@@ -127,7 +127,13 @@ pub const VTIME: usize = c::VTIME as usize;
 pub const VMIN: usize = c::VMIN as usize;
 
 /// `VSWTC`
-#[cfg(not(any(bsd, solarish, target_os = "aix", target_os = "haiku")))]
+#[cfg(not(any(
+    bsd,
+    solarish,
+    target_os = "aix",
+    target_os = "haiku",
+    target_os = "nto",
+)))]
 pub const VSWTC: usize = c::VSWTC as usize;
 
 /// `VSTART`
@@ -465,7 +471,7 @@ pub const B57600: Speed = c::B57600;
 pub const B115200: Speed = c::B115200;
 
 /// `B230400`
-#[cfg(not(target_os = "aix"))]
+#[cfg(not(any(target_os = "aix", target_os = "nto")))]
 pub const B230400: Speed = c::B230400;
 
 /// `B460800`
@@ -474,16 +480,29 @@ pub const B230400: Speed = c::B230400;
     target_os = "aix",
     target_os = "dragonfly",
     target_os = "haiku",
-    target_os = "openbsd"
+    target_os = "openbsd",
+    target_os = "nto",
 )))]
 pub const B460800: Speed = c::B460800;
 
 /// `B500000`
-#[cfg(not(any(bsd, solarish, target_os = "aix", target_os = "haiku")))]
+#[cfg(not(any(
+    bsd,
+    solarish,
+    target_os = "aix",
+    target_os = "haiku",
+    target_os = "nto",
+)))]
 pub const B500000: Speed = c::B500000;
 
 /// `B576000`
-#[cfg(not(any(bsd, solarish, target_os = "aix", target_os = "haiku")))]
+#[cfg(not(any(
+    bsd,
+    solarish,
+    target_os = "aix",
+    target_os = "haiku",
+    target_os = "nto",
+)))]
 pub const B576000: Speed = c::B576000;
 
 /// `B921600`
@@ -492,24 +511,49 @@ pub const B576000: Speed = c::B576000;
     target_os = "aix",
     target_os = "dragonfly",
     target_os = "haiku",
-    target_os = "openbsd"
+    target_os = "openbsd",
+    target_os = "nto",
 )))]
 pub const B921600: Speed = c::B921600;
 
 /// `B1000000`
-#[cfg(not(any(bsd, target_os = "aix", target_os = "haiku", target_os = "solaris")))]
+#[cfg(not(any(
+    bsd,
+    target_os = "aix",
+    target_os = "haiku",
+    target_os = "solaris",
+    target_os = "nto",
+)))]
 pub const B1000000: Speed = c::B1000000;
 
 /// `B1152000`
-#[cfg(not(any(bsd, target_os = "aix", target_os = "haiku", target_os = "solaris")))]
+#[cfg(not(any(
+    bsd,
+    target_os = "aix",
+    target_os = "haiku",
+    target_os = "solaris",
+    target_os = "nto",
+)))]
 pub const B1152000: Speed = c::B1152000;
 
 /// `B1500000`
-#[cfg(not(any(bsd, target_os = "aix", target_os = "haiku", target_os = "solaris")))]
+#[cfg(not(any(
+    bsd,
+    target_os = "aix",
+    target_os = "haiku",
+    target_os = "solaris",
+    target_os = "nto",
+)))]
 pub const B1500000: Speed = c::B1500000;
 
 /// `B2000000`
-#[cfg(not(any(bsd, target_os = "aix", target_os = "haiku", target_os = "solaris")))]
+#[cfg(not(any(
+    bsd,
+    target_os = "aix",
+    target_os = "haiku",
+    target_os = "solaris",
+    target_os = "nto",
+)))]
 pub const B2000000: Speed = c::B2000000;
 
 /// `B2500000`
@@ -520,6 +564,7 @@ pub const B2000000: Speed = c::B2000000;
     target_os = "aix",
     target_os = "haiku",
     target_os = "solaris",
+    target_os = "nto",
 )))]
 pub const B2500000: Speed = c::B2500000;
 
@@ -531,6 +576,7 @@ pub const B2500000: Speed = c::B2500000;
     target_os = "aix",
     target_os = "haiku",
     target_os = "solaris",
+    target_os = "nto",
 )))]
 pub const B3000000: Speed = c::B3000000;
 
@@ -542,6 +588,7 @@ pub const B3000000: Speed = c::B3000000;
     target_os = "aix",
     target_os = "haiku",
     target_os = "solaris",
+    target_os = "nto",
 )))]
 pub const B3500000: Speed = c::B3500000;
 
@@ -553,6 +600,7 @@ pub const B3500000: Speed = c::B3500000;
     target_os = "aix",
     target_os = "haiku",
     target_os = "solaris",
+    target_os = "nto",
 )))]
 pub const B4000000: Speed = c::B4000000;
 
@@ -650,6 +698,7 @@ pub const CBAUD: Tcflag = c::CBAUD;
     target_os = "aix",
     target_os = "haiku",
     target_os = "redox",
+    target_os = "nto",
 )))]
 pub const CBAUDEX: Tcflag = c::CBAUDEX;
 
@@ -661,6 +710,7 @@ pub const CBAUDEX: Tcflag = c::CBAUDEX;
     target_os = "emscripten",
     target_os = "haiku",
     target_os = "redox",
+    target_os = "nto",
 )))]
 pub const CIBAUD: Tcflag = c::CIBAUD;
 
@@ -678,11 +728,12 @@ pub const CIBAUD: Tcflag = 0o77600000;
     target_os = "emscripten",
     target_os = "haiku",
     target_os = "redox",
+    target_os = "nto"
 )))]
 pub const CMSPAR: Tcflag = c::CMSPAR;
 
 /// `CRTSCTS`
-#[cfg(not(any(target_os = "aix", target_os = "redox")))]
+#[cfg(not(any(target_os = "aix", target_os = "redox", target_os = "nto")))]
 pub const CRTSCTS: Tcflag = c::CRTSCTS;
 
 /// `XCASE`
@@ -694,7 +745,7 @@ pub const XCASE: Tcflag = c::XCASE;
 pub const ECHOCTL: Tcflag = c::ECHOCTL;
 
 /// `ECHOPRT`
-#[cfg(not(any(target_os = "redox")))]
+#[cfg(not(any(target_os = "redox", target_os = "nto")))]
 pub const ECHOPRT: Tcflag = c::ECHOPRT;
 
 /// `ECHOKE`
@@ -702,15 +753,20 @@ pub const ECHOPRT: Tcflag = c::ECHOPRT;
 pub const ECHOKE: Tcflag = c::ECHOKE;
 
 /// `FLUSHO`
-#[cfg(not(any(target_os = "redox")))]
+#[cfg(not(any(target_os = "redox", target_os = "nto")))]
 pub const FLUSHO: Tcflag = c::FLUSHO;
 
 /// `PENDIN`
-#[cfg(not(any(target_os = "redox")))]
+#[cfg(not(any(target_os = "redox", target_os = "nto")))]
 pub const PENDIN: Tcflag = c::PENDIN;
 
 /// `EXTPROC`
-#[cfg(not(any(target_os = "aix", target_os = "haiku", target_os = "redox")))]
+#[cfg(not(any(
+    target_os = "aix",
+    target_os = "haiku",
+    target_os = "redox",
+    target_os = "nto"
+)))]
 pub const EXTPROC: Tcflag = c::EXTPROC;
 
 /// `XTABS`

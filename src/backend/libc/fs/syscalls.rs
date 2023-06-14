@@ -39,6 +39,7 @@ use crate::fs::SealFlags;
     target_os = "netbsd",
     target_os = "redox",
     target_os = "wasi",
+    target_os = "nto",
 )))]
 use crate::fs::StatFs;
 use crate::fs::{Access, Mode, OFlags, SeekFrom, Stat, Timestamps};
@@ -187,6 +188,7 @@ pub(crate) fn openat(
     target_os = "netbsd",
     target_os = "redox",
     target_os = "wasi",
+    target_os = "nto",
 )))]
 #[inline]
 pub(crate) fn statfs(filename: &CStr) -> io::Result<StatFs> {
@@ -209,13 +211,10 @@ pub(crate) fn statvfs(filename: &CStr) -> io::Result<StatVfs> {
 
 #[inline]
 pub(crate) fn readlink(path: &CStr, buf: &mut [u8]) -> io::Result<usize> {
-    unsafe {
-        ret_usize(c::readlink(
-            c_str(path),
-            buf.as_mut_ptr().cast::<c::c_char>(),
-            buf.len(),
-        ))
-    }
+    let ret = unsafe { c::readlink(c_str(path), buf.as_mut_ptr().cast::<c::c_char>(), buf.len()) };
+    #[cfg(target_os = "nto")]
+    let ret = ret as isize;
+    ret_usize(ret)
 }
 
 #[cfg(not(target_os = "redox"))]
@@ -225,14 +224,17 @@ pub(crate) fn readlinkat(
     path: &CStr,
     buf: &mut [MaybeUninit<u8>],
 ) -> io::Result<usize> {
-    unsafe {
-        ret_usize(c::readlinkat(
+    let ret = unsafe {
+        c::readlinkat(
             borrowed_fd(dirfd),
             c_str(path),
             buf.as_mut_ptr().cast::<c::c_char>(),
             buf.len(),
-        ))
-    }
+        )
+    };
+    #[cfg(target_os = "nto")]
+    let ret = ret as isize;
+    ret_usize(ret).map(|nread| nread as usize)
 }
 
 pub(crate) fn mkdir(path: &CStr, mode: Mode) -> io::Result<()> {
@@ -935,6 +937,10 @@ pub(crate) fn chownat(
 ) -> io::Result<()> {
     unsafe {
         let (ow, gr) = crate::ugid::translate_fchown_args(owner, group);
+        #[cfg(target_os = "nto")]
+        let ow = ow as i32;
+        #[cfg(target_os = "nto")]
+        let gr = gr as i32;
         ret(c::fchownat(
             borrowed_fd(dirfd),
             c_str(path),
@@ -1157,6 +1163,10 @@ pub(crate) fn fchown(fd: BorrowedFd<'_>, owner: Option<Uid>, group: Option<Gid>)
 pub(crate) fn fchown(fd: BorrowedFd<'_>, owner: Option<Uid>, group: Option<Gid>) -> io::Result<()> {
     unsafe {
         let (ow, gr) = crate::ugid::translate_fchown_args(owner, group);
+        #[cfg(target_os = "nto")]
+        let ow = ow as i32;
+        #[cfg(target_os = "nto")]
+        let gr = gr as i32;
         ret(c::fchown(borrowed_fd(fd), ow, gr))
     }
 }
@@ -1229,6 +1239,7 @@ fn fstat_old(fd: BorrowedFd<'_>) -> io::Result<Stat> {
     target_os = "netbsd",
     target_os = "redox",
     target_os = "wasi",
+    target_os = "nto",
 )))]
 pub(crate) fn fstatfs(fd: BorrowedFd<'_>) -> io::Result<StatFs> {
     let mut statfs = MaybeUninit::<StatFs>::uninit();
