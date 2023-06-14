@@ -39,7 +39,7 @@ fn test_statfs_abi() {
     assert_eq!(NFS_SUPER_MAGIC, 0x0000_6969);
 }
 
-#[cfg(not(any(solarish, target_os = "netbsd")))]
+#[cfg(not(any(solarish, target_os = "netbsd", target_os = "nto")))]
 #[test]
 fn test_statfs() {
     let statfs = rustix::fs::statfs("Cargo.toml").unwrap();
@@ -49,7 +49,7 @@ fn test_statfs() {
     // that.
 }
 
-#[cfg(not(any(solarish, target_os = "netbsd")))]
+#[cfg(not(any(solarish, target_os = "netbsd", target_os = "nto")))]
 #[test]
 fn test_fstatfs() {
     let file = std::fs::File::open("Cargo.toml").unwrap();

@@ -95,7 +95,12 @@ impl Dir {
                 check_dirent_layout(dirent);
 
                 let result = DirEntry {
-                    #[cfg(not(any(solarish, target_os = "aix", target_os = "haiku")))]
+                    #[cfg(not(any(
+                        solarish,
+                        target_os = "aix",
+                        target_os = "haiku",
+                        target_os = "nto",
+                    )))]
                     d_type: dirent.d_type,
 
                     #[cfg(not(any(freebsdlike, netbsdlike)))]
@@ -182,7 +187,7 @@ impl fmt::Debug for Dir {
 /// `struct dirent`
 #[derive(Debug)]
 pub struct DirEntry {
-    #[cfg(not(any(solarish, target_os = "aix", target_os = "haiku")))]
+    #[cfg(not(any(solarish, target_os = "aix", target_os = "haiku", target_os = "nto")))]
     d_type: u8,
 
     #[cfg(not(any(freebsdlike, netbsdlike)))]

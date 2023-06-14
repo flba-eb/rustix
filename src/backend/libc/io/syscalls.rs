@@ -10,7 +10,7 @@ use crate::backend::conv::{
 };
 use crate::backend::{c, MAX_IOV};
 use crate::fd::{AsFd, BorrowedFd, OwnedFd, RawFd};
-#[cfg(not(any(target_os = "aix", target_os = "wasi")))]
+#[cfg(not(any(target_os = "aix", target_os = "wasi", target_os = "nto")))]
 use crate::io::DupFlags;
 #[cfg(linux_kernel)]
 use crate::io::ReadWriteFlags;

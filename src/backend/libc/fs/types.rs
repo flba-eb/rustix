@@ -292,7 +292,6 @@ bitflags! {
             target_os = "freebsd",
             target_os = "fuchsia",
             target_os = "netbsd",
-            target_os = "nto",
         ))]
         const DIRECT = c::O_DIRECT;
 

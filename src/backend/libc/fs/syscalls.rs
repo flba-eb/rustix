@@ -211,13 +211,10 @@ pub(crate) fn statvfs(filename: &CStr) -> io::Result<StatVfs> {
 
 #[inline]
 pub(crate) fn readlink(path: &CStr, buf: &mut [u8]) -> io::Result<usize> {
-    unsafe {
-        ret_usize(c::readlink(
-            c_str(path),
-            buf.as_mut_ptr().cast::<c::c_char>(),
-            buf.len(),
-        ))
-    }
+    let ret = unsafe { c::readlink(c_str(path), buf.as_mut_ptr().cast::<c::c_char>(), buf.len()) };
+    #[cfg(target_os = "nto")]
+    let ret = ret as isize;
+    ret_usize(ret)
 }
 
 #[cfg(not(target_os = "redox"))]
@@ -237,7 +234,7 @@ pub(crate) fn readlinkat(
     };
     #[cfg(target_os = "nto")]
     let ret = ret as isize;
-    ret_ssize_t(ret).map(|nread| nread as usize)
+    ret_usize(ret).map(|nread| nread as usize)
 }
 
 pub(crate) fn mkdir(path: &CStr, mode: Mode) -> io::Result<()> {
@@ -1165,7 +1162,7 @@ pub(crate) fn fchown(fd: BorrowedFd<'_>, owner: Option<Uid>, group: Option<Gid>)
 #[cfg(not(any(linux_kernel, target_os = "wasi")))]
 pub(crate) fn fchown(fd: BorrowedFd<'_>, owner: Option<Uid>, group: Option<Gid>) -> io::Result<()> {
     unsafe {
-        let (ow, gr) = crate::process::translate_fchown_args(owner, group);
+        let (ow, gr) = crate::ugid::translate_fchown_args(owner, group);
         #[cfg(target_os = "nto")]
         let ow = ow as i32;
         #[cfg(target_os = "nto")]
